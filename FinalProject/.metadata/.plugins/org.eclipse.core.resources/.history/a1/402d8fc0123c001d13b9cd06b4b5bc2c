@@ -1,0 +1,57 @@
+package com.project.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.entity.Turf;
+import com.project.services.TurfService;
+
+@RestController
+@RequestMapping("/api/turfs")
+@CrossOrigin("*")
+public class TurfController {
+
+	@Autowired
+	private TurfService turfService;
+	
+	@PostMapping("/addturf")
+	public ResponseEntity<Turf> addTurf(@RequestBody Turf turf) {
+		Turf addedTurf = turfService.addTurf(turf);
+		return new ResponseEntity<Turf>(addedTurf, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/getturf/{turfId}")
+	public ResponseEntity<Turf> getTurf(@PathVariable Integer turfId){
+		Turf turf = turfService.getTurf(turfId);
+		return ResponseEntity.ok(turf);
+	}
+	
+	@GetMapping("/getall")
+	public ResponseEntity<List<Turf>> getAllTurf(){
+		List<Turf> turfList = turfService.getAllTurfs();
+		return ResponseEntity.ok(turfList);
+	}
+	
+	@PutMapping("/updateturf/{turfId}")
+	public ResponseEntity<Turf> updateTurf(@RequestBody Turf turf, @PathVariable Integer turfId){
+		Turf updatedTurf = turfService.updateTurf(turf, turfId);
+		return ResponseEntity.ok(updatedTurf);
+	}
+	
+	@DeleteMapping("/deleteturf/{turfId}")
+	public void deleteTurf(@PathVariable Integer turfId) {
+		turfService.deleteTurf(turfId);
+	}
+}

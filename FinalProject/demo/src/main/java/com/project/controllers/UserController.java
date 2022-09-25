@@ -1,0 +1,67 @@
+package com.project.controllers;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.entity.User;
+import com.project.services.UserService;
+import com.project.services.impl.UserServiceImpl;
+
+@RestController
+@RequestMapping("/api/users")
+@CrossOrigin("*")
+public class UserController {
+
+	@Autowired
+	private UserService userService; 
+	
+//	@PreAuthorize("hasRole('ADMIN')")
+	@PostMapping("/adduser")
+	public ResponseEntity<User> addUser(@RequestBody User user) {	
+		User addedUser = userService.addUser(user);
+		return new ResponseEntity<>(addedUser, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/getuserbyemail/{userEmail}")
+	public ResponseEntity<User> getUser(@PathVariable String userEmail) {
+		User user = userService.fetchUserByEmail(userEmail); 
+		return ResponseEntity.ok(user);
+	}
+	
+	@GetMapping("/getuser/{userId}")
+	public ResponseEntity<User> getUser(@PathVariable Integer userId) {
+		User user = userService.fetchUserById(userId); 
+		return ResponseEntity.ok(user);
+	}
+	
+	@GetMapping("/getall")
+	public ResponseEntity<List<User>> getAllUsers(){
+		List<User> userList = userService.fetchAllUsers();
+		return ResponseEntity.ok(userList);
+	}
+	
+	@PutMapping("/updateuser/{userId}")
+	public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable Integer userId){
+		User updatedUser = userService.updateUser(user, userId);
+		return ResponseEntity.ok(updatedUser);
+	}
+	
+	@DeleteMapping("/deleteuser/{userId}")
+	public void deleteUser(@PathVariable Integer userId) {
+		userService.deleteUser(userId);
+	}
+	
+}

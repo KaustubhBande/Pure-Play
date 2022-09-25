@@ -1,0 +1,52 @@
+package com.project.entity;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name="turf_tbl")
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+public class Turf {
+
+	@Id
+	@GeneratedValue
+	@Column(name="turf_id")
+	private int id;
+	
+	@Column(name="turf_name")
+	private String turfName;
+	
+	@Column(name="turf_address")
+	private String turfAddress;
+	
+	@Column(name="turf_contact")
+	private String turfContact;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="turf")
+	private List<BookingDetails> turfBookingList;
+
+	public Turf(int id, String turfName, String turfAddress, String turfContact) {
+		super();
+		this.id = id;
+		this.turfName = turfName;
+		this.turfAddress = turfAddress;
+		this.turfContact = turfContact;
+	}
+}

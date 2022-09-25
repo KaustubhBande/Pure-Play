@@ -1,0 +1,42 @@
+package com.project.services.impl;
+
+import java.util.ArrayList;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+
+import com.project.repositories.UserRepo;
+
+
+@Service
+public class CustomUserDetailsService implements UserDetailsService{
+    
+	@Autowired
+	private UserRepo userRepo;
+	
+	@Override
+	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+		
+//		User user = userRepo.fetchUserByEmail(username);
+		
+		
+		if ( username.equals("aditya") ) {
+		    return new User ( "aditya" , "aditya123" , new ArrayList<>());
+		} else if (username.equals("kaustubh")) {
+			return new User ( "kaustubh" , "kaustubh123" , new ArrayList<>());
+		}else if (username.equals("harshwardhan")) {
+			return new User ( "harshwardhan" , "harshwardhan123" , new ArrayList<>());
+		}
+		
+		else {
+		    throw new UsernameNotFoundException ( " User not found !! " ) ;
+		}
+		
+	}
+
+}
