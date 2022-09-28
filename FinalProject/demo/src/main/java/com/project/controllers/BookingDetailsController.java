@@ -63,6 +63,12 @@ public class BookingDetailsController {
 		return new ResponseEntity<List<BookingDetails>>(bookingList, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getuserbookingsforadmin/{userId}")
+	public ResponseEntity<List<BookingDetails>> getBookingsOfUserForAdmin(@PathVariable Integer userId) {
+		List<BookingDetails> bookingList = this.bookingDetailsService.getBookingsofUser(userId);
+		return new ResponseEntity<List<BookingDetails>>(bookingList, HttpStatus.OK);
+	}
+	
 	@GetMapping("/getbookingsofturf/{turfId}")
 	public ResponseEntity<List<BookingDetails>> getBookingsOfTurf(@PathVariable Integer turfId) {
 		List<BookingDetails> bookingList = this.bookingDetailsService.getBookingsofTurf(turfId);
