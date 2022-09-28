@@ -1,0 +1,62 @@
+package com.project.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.project.entity.Turf;
+import com.project.exceptions.ResourceNotFoundException;
+import com.project.repositories.TurfRepo;
+import com.project.services.TurfService;
+
+@Service
+public class TurfServiceImpl implements TurfService {
+
+	@Autowired
+	private TurfRepo turfRepo;
+	
+	@Override
+	public Turf addTurf(Turf turf) {
+		Turf addedTurf = this.turfRepo.save(turf);
+		return addedTurf;
+	}
+
+	@Override
+	public Turf getTurf(Integer turfId) {
+		Turf turf = this.turfRepo.findById(turfId).orElseThrow(() -> new ResourceNotFoundException("Turf", "Id", turfId));
+		return turf;
+	}
+
+	@Override
+	public List<Turf> getAllTurfs() {
+		List<Turf> turfList = this.turfRepo.findAll();
+		return turfList;
+	}
+
+	@Override
+	public Turf updateTurf(Turf turf, Integer turfId) {
+		Turf oldTurf = this.turfRepo.findById(turfId).orElseThrow(() -> new ResourceNotFoundException("Turf", "Id", turfId));
+		
+		oldTurf.setTurfName(turf.getTurfName());
+		oldTurf.setTurfAddress(turf.getTurfAddress());
+		oldTurf.setTurfContact(turf.getTurfContact());
+		
+		Turf newTurf = this.turfRepo.save(oldTurf);
+		return newTurf;
+	}
+
+	@Override
+	public void deleteTurf(Integer turfId) {
+		
+		Turf oldTurf = turfRepo.findById(turfId).orElseThrow(() -> new ResourceNotFoundException("Turf", "Id", turfId));
+		this.turfRepo.delete(oldTurf);
+	}
+
+	@Override
+	public List<Turf> getTurfByAdd(String turfAdd) {
+		List<Turf> turf = turfRepo.findTurfsByAdd(turfAdd);
+		return turf;
+	}
+
+}

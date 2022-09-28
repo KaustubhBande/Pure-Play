@@ -22,7 +22,11 @@ public interface BookingDetailsService {
 	List<BookingDetails> getBookingsofTurf(Integer turfId);
 	
 	//Read
-	List<BookingDetails> getBookingsByDate(Date date);
+//	List<BookingDetails> getBookingsByDate(Date date);
+	List<BookingDetails> getBookingsByDate(String date);
+	
+	//Read
+	List<BookingDetails> getBookingsByDateandTurf(Integer turfId, String date);
 	
 	//Read
 	List<BookingDetails> getAllBookings();

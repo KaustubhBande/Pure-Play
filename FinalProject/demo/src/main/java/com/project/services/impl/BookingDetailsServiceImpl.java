@@ -67,8 +67,14 @@ public class BookingDetailsServiceImpl implements BookingDetailsService {
 	}
 
 	@Override
-	public List<BookingDetails> getBookingsByDate(Date bookingDate) {
+	public List<BookingDetails> getBookingsByDate(String bookingDate) {
 		List<BookingDetails> bookingList = this.bookingDetailsRepo.findbookingsByDate(bookingDate);
+		return bookingList;
+	}
+
+	@Override
+	public List<BookingDetails> getBookingsByDateandTurf(Integer turfId, String date) {
+		List<BookingDetails> bookingList = bookingDetailsRepo.findbookingsByDateandTurf(turfId, date);
 		return bookingList;
 	}
 

@@ -44,6 +44,12 @@ public class TurfController {
 		return new ResponseEntity<List<Turf>>(turfList, HttpStatus.OK);
 	}
 	
+	@GetMapping("/getturfbyname/{turfName}")
+	public ResponseEntity<Turf> getTurfByName(@PathVariable String turfName){
+		Turf turf = turfService.getTurfByName(turfName);
+		return new ResponseEntity<Turf>(turf, HttpStatus.OK);
+	}
+	
 	@GetMapping("/getall")
 	public ResponseEntity<List<Turf>> getAllTurf(){
 		List<Turf> turfList = turfService.getAllTurfs();

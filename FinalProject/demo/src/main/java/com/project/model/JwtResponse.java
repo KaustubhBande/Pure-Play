@@ -10,6 +10,5 @@ import lombok.Setter;
 @Setter
 @Getter
 public class JwtResponse {
-		String token;
-		
+	String token;
 }

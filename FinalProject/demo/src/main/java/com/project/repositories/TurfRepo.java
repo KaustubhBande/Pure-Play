@@ -13,4 +13,8 @@ public interface TurfRepo extends JpaRepository<Turf, Integer> {
 	@Query(value = "SELECT * FROM turf_tbl t WHERE t.turf_address = :turfAdd", nativeQuery = true)
 	List<Turf> findTurfsByAdd (
 	  @Param("turfAdd") String turfAdd);
+	
+	@Query(value = "SELECT * FROM turf_tbl t WHERE t.turf_name = :turfName", nativeQuery = true)
+	Turf findTurfByName (
+	  @Param("turfName") String turfName);
 }

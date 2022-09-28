@@ -69,9 +69,22 @@ public class BookingDetailsController {
 		return new ResponseEntity<List<BookingDetails>>(bookingList, HttpStatus.OK);
 	}
 	
-	@GetMapping("/getbookingsbydate")
-	public ResponseEntity<List<BookingDetails>> getBookingsOfUser(@RequestBody BookingDetails bookingDate) {
-		List<BookingDetails> bookingList = this.bookingDetailsService.getBookingsByDate(bookingDate.getBookingDate());
+	@GetMapping("/getturfbookingsforadmin/{turfId}")
+	public ResponseEntity<List<BookingDetails>> getBookingsOfTurfForAdmin(@PathVariable Integer turfId) {
+		List<BookingDetails> bookingList = this.bookingDetailsService.getBookingsofTurf(turfId);
+		return new ResponseEntity<List<BookingDetails>>(bookingList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getbookingsbydate/{bookingDate}")
+	public ResponseEntity<List<BookingDetails>> getBookingsOfUser(@PathVariable String bookingDate) {
+		List<BookingDetails> bookingList = this.bookingDetailsService.getBookingsByDate(bookingDate);
+		return new ResponseEntity<List<BookingDetails>>(bookingList, HttpStatus.OK);
+	}
+	
+	@GetMapping("/getbookingsbydateandturf/{bookingDate}/{turfId}")
+	public ResponseEntity<List<BookingDetails>> getBookingsbyDateAndTurf(@PathVariable String bookingDate, @PathVariable String turfId) {
+		Integer turfID = Integer.parseInt(turfId);
+		List<BookingDetails> bookingList = this.bookingDetailsService.getBookingsByDateandTurf(turfID, bookingDate);
 		return new ResponseEntity<List<BookingDetails>>(bookingList, HttpStatus.OK);
 	}
 }

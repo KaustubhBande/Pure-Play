@@ -44,7 +44,7 @@ public class JwtController {
 			 throw new Exception("Bad Credentials1");
 		 }catch (BadCredentialsException ex) {
 			ex.printStackTrace();
-			throw new Exception("Bad Credentials2");
+			throw new BadCredentialsException("Bad Credentials2");
 		 }catch(AuthenticationException ex) {
 			 ex.printStackTrace();
 			 throw new Exception("Bad Credentials3");

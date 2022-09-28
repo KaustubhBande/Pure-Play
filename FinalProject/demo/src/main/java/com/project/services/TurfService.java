@@ -16,6 +16,9 @@ public interface TurfService {
 	List<Turf> getTurfByAdd(String turfAdd);
 	
 	//Read
+	Turf getTurfByName(String turfName);
+	
+	//Read
 	List<Turf> getAllTurfs();
 	
 	//Update

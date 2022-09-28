@@ -55,7 +55,13 @@ public class TurfServiceImpl implements TurfService {
 
 	@Override
 	public List<Turf> getTurfByAdd(String turfAdd) {
-		List<Turf> turf = turfRepo.findTurfsByAdd(turfAdd);
+		List<Turf> turfs = turfRepo.findTurfsByAdd(turfAdd);
+		return turfs;
+	}
+
+	@Override
+	public Turf getTurfByName(String turfName) {
+		Turf turf = turfRepo.findTurfByName(turfName);
 		return turf;
 	}
 

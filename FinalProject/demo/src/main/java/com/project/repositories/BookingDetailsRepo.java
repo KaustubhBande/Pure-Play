@@ -19,7 +19,12 @@ public interface BookingDetailsRepo extends JpaRepository<BookingDetails, Intege
 	List<BookingDetails> findbookingsOfTurf(
 	  @Param("turfId") Integer turfId);
 	
-	@Query(value = "SELECT * FROM Booking_Dtls bd WHERE bd.booking_date = :bookingDate", nativeQuery = true)
+	@Query(value = "SELECT * FROM Booking_Dtls bd WHERE bd.slotbooking_date = :bookingDate", nativeQuery = true)
 	List<BookingDetails> findbookingsByDate(
-	  @Param("bookingDate") Date bookingDate);
+	  @Param("bookingDate") String bookingDate);
+	
+	@Query(value = "SELECT * FROM Booking_Dtls bd WHERE bd.turf_id = :turfId and bd.slotbooking_date = :bookingDate", nativeQuery = true)
+	List<BookingDetails> findbookingsByDateandTurf(
+	  @Param("turfId") Integer turfId,
+	  @Param("bookingDate") String bookingDate);
 }

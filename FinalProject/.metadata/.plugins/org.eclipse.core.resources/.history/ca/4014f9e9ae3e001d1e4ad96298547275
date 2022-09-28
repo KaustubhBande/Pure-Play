@@ -1,0 +1,100 @@
+package com.project.entity;
+
+import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.UniqueElements;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@Entity
+@Table(name="user_tbl")
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
+public class User {
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Integer id;
+	
+	@NotEmpty
+	private String name;
+	
+	@NotEmpty
+	private String password;
+	
+	@NotEmpty
+	@Email
+	@UniqueElements
+	private String email;
+	
+	@Column(name="contact_no")
+	@NotEmpty
+	private String contactNo;
+	
+	@Column(name="add_1")
+	private String address1;
+	@NotEmpty
+	
+	@Column(name="add_2")
+	@NotEmpty
+	private String address2;
+	
+	@NotEmpty
+	private String city;
+	
+	@NotEmpty
+	private String state;
+	
+	@NotEmpty
+	private Integer pincode;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name="role_id")
+	private Role userRole;
+	
+	@JsonIgnore
+	@OneToMany(mappedBy="user")
+	private List<BookingDetails> userBookingList;
+
+	public User(Integer id, @NotEmpty String name, @NotEmpty String password,
+			@NotEmpty @Email @UniqueElements String email, @NotEmpty String contactNo, String address1,
+			@NotEmpty @NotEmpty String address2, @NotEmpty String city, @NotEmpty String state,
+			@NotEmpty Integer pincode, @NotEmpty Role userRole) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.password = password;
+		this.email = email;
+		this.contactNo = contactNo;
+		this.address1 = address1;
+		this.address2 = address2;
+		this.city = city;
+		this.state = state;
+		this.pincode = pincode;
+		this.userRole = userRole;
+	}
+
+}
