@@ -36,7 +36,7 @@ public class MySecurityConfig extends WebSecurityConfigurerAdapter{
 		.authorizeRequests()
 		.antMatchers("/token").permitAll()
 		.antMatchers("/api/users/adduser","/api/users/getuserbyemail/**","/api/turfs/getturfbyadd/**","/api/users/getuser/**","/api/users/updateuser/**","/api/turfs/getturf/**","/api/bookings/getbookingsbydateandturf/**","/api/bookings/add").permitAll()
-		.antMatchers("/api/bookings/getbookingsofuser/**","/api/bookings/delete/**","/api/bookings/get/**").hasRole("USER")
+		.antMatchers("/api/bookings/getbookingsofuser/**","/api/bookings/delete/**","/api/bookings/get/**","/sendemail").hasRole("USER")
 		.antMatchers("/api/bookings/getbookingsofturf/**").hasRole("MANAGER")
 		.antMatchers("/api/users/**","/api/turfs/addturf","/api/bookings/getturfbookingsforadmin/**","/getbookingsbydate/**","/api/bookings/getuserbookingsforadmin/**","/api/turfs/getturfbyname/**").hasRole("ADMIN")
 		.anyRequest()
